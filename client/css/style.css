@@ -617,3 +617,40 @@ img {
 .ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}
 
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
+
+
+
+
+/* create-card */
+#create-card-blue{
+	color: blue;
+}
+
+#create-card-green{
+        color: green;
+}
+
+#create-card-red{
+        color: red;
+}
+
+#create-card-yellow{
+        color: yellow;
+}
+
+#create-card-purple{
+        color: purple;
+}
+
+#create-card-brown{
+        color: brown;
+}
+
+#create-card-white{
+        color: white;
+}
+
+#create-card-teal{
+        color: teal;
+}
+

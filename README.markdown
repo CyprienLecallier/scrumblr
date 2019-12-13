@@ -39,13 +39,24 @@ my goal was to avoid buttons and ui (almost everything is edit in place or dragg
 how to install and run on your own computer (linux/osx)
 -------------------------------------------------------
 
-- [install redis](http://redis.io/download) (last tested on v2.8.4)
-- [install node.js](http://nodejs.org/) (last tested on v0.10.30)
-- install npm (if you're running node.js [v0.6.3](https://github.com/joyent/node/commit/b159c6) or newer it's already installed!)
-- cd to the scrumblr directory; you should see server.js and config.js and other files.
-- run `npm install`
-- run redis `redis-server`
-- run scrumblr `node server.js --port 80` where "80" is the port you have opened in your firewall and want scrumblr to run on. 
+Installation de Redis (5.0.7)
+[yum install epel-release yum-utils]
+[yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm]
+[yum-config-manager --enable remi]
+[yum install redis]
+[systemctl start redis]
+[systemctl enable redis]
+
+Installation de Node.js (10.17.0)
+[curl -sL https://rpm.nodesource.com/setup_10.x | bash -]
+[yum install nodejs]
+
+Installation de Scrumblr
+[git init]
+[git clone ...]
+[npm install]
+[node server.js --port 80]
+
 - open a browser to `http://<server>:<port>` where `<server>` is your server's url or IP address, and `<port>` is the port you chose in the previous step.
 
 license
@@ -67,7 +78,4 @@ the *images* used in scrumblr, however are licensed under cc non commercial node
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-nd/3.0/80x15.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/3.0/">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>.
 
-author
-------
 
-ali asaria

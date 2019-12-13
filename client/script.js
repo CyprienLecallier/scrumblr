@@ -246,10 +246,12 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
     var speed = Math.floor(Math.random() * 1000);
     if (typeof(animationspeed) != 'undefined') speed = animationspeed;
 
-    var startPosition = $("#create-card").position();
+    var startPosition = $("#create-card-blue").position();
 
     card.css('top', startPosition.top - card.height() * 0.5);
     card.css('left', startPosition.left - card.width() * 0.5);
+
+
 
     card.animate({
         left: x + "px",
@@ -692,6 +694,7 @@ $(function() {
     //setTimeout($.unblockUI, 2000);
 
 
+/*
     $("#create-card")
         .click(function() {
             var rotation = Math.random() * 10 - 5; //add a bit of random rotation (+/- 10deg)
@@ -700,9 +703,106 @@ $(function() {
             createCard(
                 'card' + uniqueID,
                 '',
-                58, $('div.board-outline').height(), // hack - not a great way to get the new card coordinates, but most consistant ATM
+                300, $('div.board-outline').height(), // hack - not a great way to get the new card coordinates, but most consistant ATM
                 rotation,
                 randomCardColour());
+        });
+*/
+
+    $("#create-card-blue")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+		"blue");
+	});
+
+    $("#create-card-green")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+                "green");
+        });
+
+    $("#create-card-red")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+                "red");
+        });
+
+    $("#create-card-yellow")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+                "yellow");
+        });
+
+    $("#create-card-white")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+                "white");
+        });
+
+    $("#create-card-purple")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+                "purple");
+        });
+
+    $("#create-card-brown")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+                "brown");
+        });
+
+    $("#create-card-teal")
+        .click(function() {
+            var rotation = Math.random() * 10 - 5;
+            uniqueID = Math.round(Math.random() * 99999999);
+            createCard(
+                'card' + uniqueID,
+                '',
+                300, $('div.board-outline').height(),
+                rotation,
+                "teal");
         });
 
 
