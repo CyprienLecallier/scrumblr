@@ -463,10 +463,9 @@ function displayRemoveColumn() {
     $('.col:last').fadeOut(150,
         function() {
             $(this).remove();
+	    totalcolumns--;
         }
     );
-
-    totalcolumns--;
 }
 
 function createColumn(name) {
