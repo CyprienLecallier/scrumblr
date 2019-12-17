@@ -304,7 +304,7 @@ xopacity: .5;
 }
 
 .stickers {
-	width: 1000px;
+	width: 500px;
 	text-align: right;
 	padding-top: 2px; margin: 0;
 }
@@ -654,3 +654,20 @@ img {
         color: teal;
 }
 
+
+/*Edit*/
+
+.table-footer{
+	display: flex;
+	flex-direction: row;
+}
+
+#edit {
+	margin-left: 100px;
+	padding: 5px;
+}
+
+.lock{
+	height: 25px;
+	opacity: .4;
+}

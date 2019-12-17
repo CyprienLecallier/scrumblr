@@ -4,6 +4,7 @@ var columns = [];
 var currentTheme = "bigcards";
 var boardInitialized = false;
 var keyTrap = null;
+var locked = true;
 
 var baseurl = location.pathname.substring(0, location.pathname.lastIndexOf('/'));
 var socket = io.connect({path: baseurl + "/socket.io"});
@@ -405,6 +406,44 @@ function initCards(cardArray) {
 // cols
 //----------------------------------
 
+//Edit table
+
+function lockTable(){
+	locked = true
+	$('#edit').html('<img src="/images/lock.png" class="lock">')
+	$('.editable').editable('destroy')
+}
+
+function unlockTable(){
+        locked = false
+        $('#edit').html('<img src="/images/unlock.png" class="lock">')
+	$('.editable').editable(function(value, settings) {
+	        onColumnChange(this.id, value);
+	        return (value);
+	}, {
+	        style: 'inherit',
+	        cssclass: 'card-edit-form',
+	        type: 'textarea',
+	        placeholder: 'New',
+	        onblur: 'submit',
+	        width: '',
+	        height: '',
+	        xindicator: '<img src="images/ajax-loader.gif">',
+	        event: 'dblclick', //event: 'mouseover'
+	});
+
+}
+
+$(function(){
+	$('#edit').click(function(){
+		if (locked){
+			unlockTable()
+		} else {
+			lockTable()
+		}
+	})
+})
+
 function drawNewColumn(columnName) {
     var cls = "col";
     if (totalcolumns === 0) {
@@ -428,9 +467,13 @@ function drawNewColumn(columnName) {
         height: '',
         xindicator: '<img src="images/ajax-loader.gif">',
         event: 'dblclick', //event: 'mouseover'
-    });
+    }); 
 
     $('.col:last').fadeIn(1500);
+
+    if (locked){
+	$('.editable').editable('destroy')
+    }
 
     totalcolumns++;
 }
@@ -838,15 +881,19 @@ $(function() {
 
     $('#add-col').click(
         function() {
-            createColumn('New');
-            return false;
+	    if (!locked){
+        	createColumn('New');
+        	return false;
+	    }
         }
     );
 
     $('#delete-col').click(
         function() {
-            deleteColumn();
-            return false;
+            if (!locked){
+                deleteColumn();
+                return false;
+	    }
         }
     );
 
