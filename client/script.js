@@ -406,12 +406,58 @@ function initCards(cardArray) {
 // cols
 //----------------------------------
 
+
 //Edit table
+
+
+function enableColumnResize(){
+		
+
+	//Allow column resize
+	$("table").colResizable({
+		liveDrag:true,
+		disabledColumns: [($("td").length - 2),($("td").length - 1)] //Disable #icon-col resize
+	})
+
+	
+	$("td").css({"border": "1px solid red"})
+	$("#icon-col").css({"width": "20px"})
+	
+}
+
+function disableColumnResize(){
+	$("table").colResizable({disable:true})
+}
+
+function getColumnsWidth(){
+	var columnsWidth = {}
+	var i = 0
+	$("td:not(#icon-col)").each(function(){
+		columnsWidth[i] = $(this).width()
+		i++
+	})
+
+	console.log(columnsWidth)
+	return columnsWidth
+}
+
+function resizeColumns(){
+	columnsWidth = getColumnsWidth()
+	var i = 0
+	$("td:not(#icon-col)").each(function(){
+		var newWidth = 100 / totalcolumns 
+		console.log(newWidth)
+		$(this).css({"width": newWidth + "%"})
+		i++
+	})
+}
 
 function lockTable(){
 	locked = true
 	$('#edit').html('<img src="/images/lock.png" class="lock">')
 	$('.editable').editable('destroy')
+	disableColumnResize()
+	getColumnsWidth()
 }
 
 function unlockTable(){
@@ -432,6 +478,7 @@ function unlockTable(){
 	        event: 'dblclick', //event: 'mouseover'
 	});
 
+	enableColumnResize()
 }
 
 $(function(){
@@ -509,6 +556,7 @@ function displayRemoveColumn() {
 	    totalcolumns--;
         }
     );
+
 }
 
 function createColumn(name) {
@@ -516,6 +564,9 @@ function createColumn(name) {
 
     drawNewColumn(name);
     columns.push(name);
+    resizeColumns()
+    disableColumnResize();
+    enableColumnResize();
 
     var action = "updateColumns";
 
@@ -529,6 +580,11 @@ function deleteColumn() {
 
     displayRemoveColumn();
     columns.pop();
+
+    setTimeout(function(){
+       disableColumnResize();
+       enableColumnResize();
+    }, 200)
 
     var action = "updateColumns";
 
