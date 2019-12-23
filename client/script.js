@@ -120,6 +120,9 @@ function getMessage(m) {
             initColumns(data);
             break;
 
+	case 'updateColumnsSize':
+	    break;
+
         case 'changeTheme':
             changeThemeTo(data);
             break;
@@ -437,7 +440,6 @@ function getColumnsWidth(){
 		i++
 	})
 
-	console.log(columnsWidth)
 	return columnsWidth
 }
 
@@ -446,7 +448,6 @@ function resizeColumns(){
 	var i = 0
 	$("td:not(#icon-col)").each(function(){
 		var newWidth = 100 / totalcolumns 
-		console.log(newWidth)
 		$(this).css({"width": newWidth + "%"})
 		i++
 	})
@@ -457,7 +458,7 @@ function lockTable(){
 	$('#edit').html('<img src="/images/lock.png" class="lock">')
 	$('.editable').editable('destroy')
 	disableColumnResize()
-	getColumnsWidth()
+	sendAction("updatecolumnsize", getColumnsWidth())
 }
 
 function unlockTable(){

@@ -253,6 +253,14 @@ io.sockets.on('connection', function (client) {
 
 				break;
 
+			case 'updateColumnsSize':
+				var columnsSize = message.data
+
+				getRoom( client, function(room) {
+					db.saveColumnsSize(room, columnsSize, function(){});
+				})
+				broadcastToRoom( client, 'updateColumnsSize');
+
 			case 'changeTheme':
 				clean_message = {};
 				clean_message.data = scrub(message.data);
