@@ -69,7 +69,6 @@ function blockUI(message) {
 
 //respond to an action event
 function getMessage(m) {
-	console.log(m)
     var message = m; //JSON.parse(m);
     var action = message.action;
     var data = message.data;
@@ -120,6 +119,10 @@ function getMessage(m) {
         case 'updateColumns':
             initColumns(data);
             break;
+
+	case 'initColumnsSize':
+	    initColumnsSize(data)
+	    break;
 
 	case 'updateColumnsSize':
 	    break;
@@ -424,7 +427,6 @@ function enableColumnResize(){
 	})
 
 	
-	$("td").css({"border": "1px solid red"})
 	$("#icon-col").css({"width": "20px"})
 	
 }
@@ -623,6 +625,17 @@ function initColumns(columnArray) {
             column
         );
     }
+}
+
+function initColumnsSize(data) {
+	var colmunsSize = data
+	var i = 0
+	if (colmunsSize && Object.keys(colmunsSize).length === totalcolumns) {
+		$("td").each(function(){
+			$(this).css({"width": colmunsSize[i]})
+			i++
+		})
+	}
 }
 
 
