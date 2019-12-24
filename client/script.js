@@ -69,6 +69,7 @@ function blockUI(message) {
 
 //respond to an action event
 function getMessage(m) {
+	console.log(m)
     var message = m; //JSON.parse(m);
     var action = message.action;
     var data = message.data;
@@ -458,7 +459,7 @@ function lockTable(){
 	$('#edit').html('<img src="/images/lock.png" class="lock">')
 	$('.editable').editable('destroy')
 	disableColumnResize()
-	sendAction("updatecolumnsize", getColumnsWidth())
+	sendAction("updateColumnsSize", getColumnsWidth())
 }
 
 function unlockTable(){
@@ -627,7 +628,8 @@ function initColumns(columnArray) {
 
 function changeThemeTo(theme) {
     currentTheme = theme;
-    $("link[title=cardsize]").attr("href", "css/" + theme + ".css");
+    currentTheme = 'bigcards'
+    $("link[title=cardsize]").attr("href", "css/" + currentTheme + ".css");
 }
 
 
@@ -908,6 +910,7 @@ $(function() {
 
     // Style changer
     $("#smallify").click(function() {
+	console.log(currentTheme)
         if (currentTheme == "bigcards") {
             changeThemeTo('smallcards');
         } else if (currentTheme == "smallcards") {

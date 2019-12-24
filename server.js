@@ -256,6 +256,9 @@ io.sockets.on('connection', function (client) {
 			case 'updateColumnsSize':
 				var columnsSize = message.data
 
+				console.log(columnsSize)
+				console.log(typeof columnsSize)
+
 				getRoom( client, function(room) {
 					db.saveColumnsSize(room, columnsSize, function(){});
 				})
