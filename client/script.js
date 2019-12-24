@@ -629,10 +629,16 @@ function initColumns(columnArray) {
 
 function initColumnsSize(data) {
 	var colmunsSize = data
+	var tableWidth = 0
+	for (i in colmunsSize){
+		console.log(colmunsSize[i])
+		tableWidth += parseFloat(colmunsSize[i])
+	}
+	console.log(tableWidth)
 	var i = 0
 	if (colmunsSize && Object.keys(colmunsSize).length === totalcolumns) {
 		$("td").each(function(){
-			$(this).css({"width": colmunsSize[i]})
+			$(this).css({"width": (colmunsSize[i] / tableWidth * 100).toFixed() + "%" })
 			i++
 		})
 	}
@@ -641,7 +647,6 @@ function initColumnsSize(data) {
 
 function changeThemeTo(theme) {
     currentTheme = theme;
-    currentTheme = 'bigcards'
     $("link[title=cardsize]").attr("href", "css/" + currentTheme + ".css");
 }
 
@@ -928,7 +933,9 @@ $(function() {
             changeThemeTo('smallcards');
         } else if (currentTheme == "smallcards") {
             changeThemeTo('bigcards');
-        }
+        } else {
+		changeThemeTo('bigcards');
+	}
         /*else if (currentTheme == "nocards")
 		{
 			currentTheme = "bigcards";
