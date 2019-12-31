@@ -115,6 +115,7 @@ io.sockets.on('connection', function (client) {
 
 		if (!message.action)	return;
 
+
 		switch (message.action)
 		{
 			case 'initializeMe':
@@ -167,6 +168,7 @@ io.sockets.on('connection', function (client) {
 
 				getRoom(client, function(room) {
 					createCard( room, clean_data.id, clean_data.text, clean_data.x, clean_data.y, clean_data.rot, clean_data.colour);
+					db.createBackup(room)
 				});
 
 				message_out = {
@@ -309,6 +311,10 @@ io.sockets.on('connection', function (client) {
 				});
 
 				broadcastToRoom( client, { action: 'setBoardSize', data: size } );
+				break;
+
+			case 'backup':
+				console.log(message.data)
 				break;
 
 			default:

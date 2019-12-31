@@ -5,6 +5,7 @@ var currentTheme = "bigcards";
 var boardInitialized = false;
 var keyTrap = null;
 var locked = true;
+var currentStatus = 0;
 
 var baseurl = location.pathname.substring(0, location.pathname.lastIndexOf('/'));
 var socket = io.connect({path: baseurl + "/socket.io"});
@@ -154,6 +155,9 @@ function getMessage(m) {
         case 'setBoardSize':
             resizeBoard(message.data);
             break;
+
+	case 'backup':
+		break;
 
         default:
             //unknown message
@@ -462,6 +466,7 @@ function lockTable(){
 	$('.editable').editable('destroy')
 	disableColumnResize()
 	sendAction("updateColumnsSize", getColumnsWidth())
+	sendAction('changeTheme', currentTheme);
 }
 
 function unlockTable(){
@@ -631,10 +636,8 @@ function initColumnsSize(data) {
 	var colmunsSize = data
 	var tableWidth = 0
 	for (i in colmunsSize){
-		console.log(colmunsSize[i])
 		tableWidth += parseFloat(colmunsSize[i])
 	}
-	console.log(tableWidth)
 	var i = 0
 	if (colmunsSize && Object.keys(colmunsSize).length === totalcolumns) {
 		$("td").each(function(){
@@ -647,6 +650,7 @@ function initColumnsSize(data) {
 
 function changeThemeTo(theme) {
     currentTheme = theme;
+    //currentTheme = 'bigcards'
     $("link[title=cardsize]").attr("href", "css/" + currentTheme + ".css");
 }
 
@@ -928,7 +932,6 @@ $(function() {
 
     // Style changer
     $("#smallify").click(function() {
-	console.log(currentTheme)
         if (currentTheme == "bigcards") {
             changeThemeTo('smallcards');
         } else if (currentTheme == "smallcards") {
@@ -1066,5 +1069,27 @@ $(function() {
         containment: 'parent'
     });
 
-
 });
+
+//-------
+//Backup
+//-------
+
+$(function() {
+        $("#previous").on("click", function(){
+		if (currentStatus < 10){
+			currentStatus ++
+			sendAction("backup", currentStatus)
+		}
+		console.log(currentStatus)
+        })
+
+        $("#following").on("click", function(){
+		if (currentStatus > 0){
+			currentStatus --
+			sendAction("backup", currentStatus)
+		}
+		console.log(currentStatus)
+        })
+})
+
