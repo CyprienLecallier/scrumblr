@@ -22,6 +22,7 @@ var	data	= require('./lib/data.js').db;
 **************/
 //Map of sids to user_names
 var sids_to_user_names = [];
+var numBackup = 0;
 
 /**************
  SETUP EXPRESS
@@ -151,6 +152,8 @@ io.sockets.on('connection', function (client) {
 				// console.log(JSON.stringify(message.data));
 
 				getRoom(client, function(room) {
+					db.createBackup(room, numBackup)
+					numBackup = 0
 					db.cardSetXY( room , message.data.id, message.data.position.left, message.data.position.top);
 				});
 
@@ -167,8 +170,9 @@ io.sockets.on('connection', function (client) {
 				clean_data.colour = scrub(data.colour);
 
 				getRoom(client, function(room) {
+					db.createBackup(room, numBackup)
+					numBackup = 0
 					createCard( room, clean_data.id, clean_data.text, clean_data.x, clean_data.y, clean_data.rot, clean_data.colour);
-					db.createBackup(room)
 				});
 
 				message_out = {
@@ -188,6 +192,8 @@ io.sockets.on('connection', function (client) {
 
 				//send update to database
 				getRoom(client, function(room) {
+					db.createBackup(room, numBackup)
+					numBackup = 0
 					db.cardEdit( room , clean_data.id, clean_data.value );
 				});
 
@@ -208,6 +214,8 @@ io.sockets.on('connection', function (client) {
 				};
 
 				getRoom( client, function(room) {
+					db.createBackup(room, numBackup)
+					numBackup = 0
 					db.deleteCard ( room, clean_message.data.id );
 				});
 
@@ -294,6 +302,8 @@ io.sockets.on('connection', function (client) {
 				var stickerId = scrub(message.data.stickerId);
 
 				getRoom(client, function(room) {
+					db.createBackup(room, numBackup)
+					numBackup = 0
 					db.addSticker( room , cardId, stickerId );
 				});
 
@@ -314,7 +324,8 @@ io.sockets.on('connection', function (client) {
 				break;
 
 			case 'backup':
-				console.log(message.data)
+				numBackup = message.data
+				initClientBackup(client, numBackup)
 				break;
 
 			default:
@@ -339,6 +350,28 @@ io.sockets.on('connection', function (client) {
 /**************
  FUNCTIONS
 **************/
+
+function initClientBackup(client, num)
+{
+	if (num === 0){
+		num = ""
+	} else {
+		num = "-" + num
+	}
+	getRoom(client, function(room) {
+		db.getAllCardsBackup( room, num , function (cards) {
+
+                        client.json.send(
+                                {
+                                        action: 'initCards',
+                                        data: cards
+                                }
+                        );
+
+                });
+	})
+}
+
 function initClient ( client )
 {
 	//console.log ('initClient Started');

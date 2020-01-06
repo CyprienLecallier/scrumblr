@@ -232,6 +232,7 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
         };
 
         sendAction('moveCard', data);
+	currentStatus = 0
     });
 
     card.children(".droppable").droppable({
@@ -297,6 +298,7 @@ function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
             sendAction('deleteCard', {
                 'id': id
             });
+	    currentStatus = 0
         }
     );
 
@@ -324,6 +326,7 @@ function onCardChange(id, text) {
         id: id,
         value: text
     });
+    currentStatus = 0
 }
 
 function moveCard(card, position) {
@@ -353,7 +356,7 @@ function addSticker(cardId, stickerId) {
             stickerContainer.prepend('<img src="images/stickers/' + stickerId +
                 '.png">');
     }
-
+    currentStatus = 0
 }
 
 
@@ -375,7 +378,7 @@ function createCard(id, text, x, y, rot, colour) {
     };
 
     sendAction(action, data);
-
+    currentStatus = 0
 }
 
 function randomCardColour() {
