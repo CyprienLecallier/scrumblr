@@ -97,6 +97,7 @@ function getMessage(m) {
 
         case 'createCard':
             //console.log(data);
+            console.log('createCard')
             drawNewCard(data.id, data.text, data.x, data.y, data.rot, data.colour,
                 null);
             break;
@@ -157,7 +158,11 @@ function getMessage(m) {
             break;
 
 	case 'backup':
-		break;
+            break;
+
+	case 'currentBackupStatus':
+            getCurrentStatus(message.data);
+            break;
 
         default:
             //unknown message
@@ -171,6 +176,20 @@ function getMessage(m) {
 $(document).bind('keyup', function(event) {
     keyTrap = event.which;
 });
+
+function getCurrentStatus(data){
+	console.log("A")
+	console.log(data)
+	currentStatus = message.data
+}
+
+$(function(){
+	$(window).click(function(){
+		console.log("console")
+		console.log(currentStatus)
+		sendAction('currentBackupStatus', null)
+	})
+})
 
 function drawNewCard(id, text, x, y, rot, colour, sticker, animationspeed) {
     //cards[id] = {id: id, text: text, x: x, y: y, rot: rot, colour: colour};

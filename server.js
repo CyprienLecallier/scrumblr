@@ -22,7 +22,7 @@ var	data	= require('./lib/data.js').db;
 **************/
 //Map of sids to user_names
 var sids_to_user_names = [];
-var numBackup
+var numBackup 
 
 /**************
  SETUP EXPRESS
@@ -330,6 +330,13 @@ io.sockets.on('connection', function (client) {
 				numBackup = message.data
 				db.setNumBackup(room, numBackup)
 				initClientBackup(client, numBackup)
+				break;
+
+			case 'currentBackupStatus':
+				console.log(5)
+				console.log(numBackup)
+				broadcastToRoom( client, { action: 'currentBackupStatus', data: [numBackup] } );
+				console.log("end")
 				break;
 
 			default:
