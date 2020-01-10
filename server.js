@@ -333,10 +333,9 @@ io.sockets.on('connection', function (client) {
 				break;
 
 			case 'currentBackupStatus':
-				console.log(5)
-				console.log(numBackup)
-				broadcastToRoom( client, { action: 'currentBackupStatus', data: [numBackup] } );
-				console.log("end")
+				getRoom(client, function() {
+					client.json.send( { action: 'currentBackupStatus', data: numBackup } );
+				})
 				break;
 
 			default:

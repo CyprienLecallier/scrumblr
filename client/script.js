@@ -178,15 +178,11 @@ $(document).bind('keyup', function(event) {
 });
 
 function getCurrentStatus(data){
-	console.log("A")
-	console.log(data)
-	currentStatus = message.data
+	currentStatus = data
 }
 
 $(function(){
 	$(window).click(function(){
-		console.log("console")
-		console.log(currentStatus)
 		sendAction('currentBackupStatus', null)
 	})
 })
@@ -1103,7 +1099,6 @@ $(function() {
 			currentStatus ++
 			sendAction("backup", currentStatus)
 		}
-		console.log(currentStatus)
         })
 
         $("#following").on("click", function(){
@@ -1111,7 +1106,6 @@ $(function() {
 			currentStatus --
 			sendAction("backup", currentStatus)
 		}
-		console.log(currentStatus)
         })
 })
 
